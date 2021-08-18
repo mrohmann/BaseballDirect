@@ -1,0 +1,39 @@
+.header {
+  background-color: #030207;
+  background-image: url("https://cdn.vox-cdn.com/thumbor/HF_sAj0TWz6W5czvAVLoaucQPj4=/0x0:3000x2342/1200x800/filters:focal(1514x843:1994x1323)/cdn.vox-cdn.com/uploads/chorus_image/image/67416245/640594548.jpg.0.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  background-position: center;
+}
+.header .title {
+  color: white;
+  text-align: center;
+  font-size: 60px;
+  text-shadow: 0 0 10px #bf0d3e;
+}
+.header img {
+  width: 20%;
+}
+.content {
+  margin-top: 20px;
+  background-color: #fff;
+}
+/* .columns{
+
+} */
+.teams {
+  background-color: rgb(239, 240, 242);
+  margin-left: 10px;
+  margin-right: 20px;
+  height: 25%;
+}
+.teams ul {
+  list-style-type: none;
+}
+.game-buttons button {
+  margin-bottom: 15px;
+}
+.todays-games {
+  background-color: rgb(239, 240, 242);
+  padding: 15px 0 0 15px;
+}
