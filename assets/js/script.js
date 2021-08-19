@@ -1,4 +1,4 @@
-var requestUrl = "http://statsapi.mlb.com/api/v1/schedule/games/?sportId=1";
+var requestUrl = "https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1";
 var todaysGamesEl = document.getElementById("todaysgames");
 
 function getDepartureAirport(usersCity) {
@@ -57,15 +57,16 @@ function displayFlightInfo( ){
 };
   
 
-function flightSearch(event) {
-  var buttonClicked = event.target;
-  console.log("buttonClicked: ", buttonClicked);
-
   var departureAirport = getDepartureAirport("chicago");
   console.log("flightSearch departureAirportCode: ", departureAirport);
 
   var destinationAirport = getArrivalAirport("New York City");
   console.log("flightSearch destinationAirportCode: ", destinationAirport);
+  
+function flightSearch(event) {
+  var buttonClicked = event.target;
+  console.log("buttonClicked: ", buttonClicked);
+
 
   var outboundDate = moment().format("YYYY-MM-DD"); //set to current date temporarily
   console.log("outbound Date: ", outboundDate);
