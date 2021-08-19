@@ -26,7 +26,7 @@ function getDepartureAirport(usersCity) {
     });
 }
 
-function getArrivalAirport(homeTeamCity) {
+async function getArrivalAirport(homeTeamCity) {
   console.log("getDepartureAirport input: ", homeTeamCity);
 
   var destinationSearchURL =
@@ -51,19 +51,17 @@ function getArrivalAirport(homeTeamCity) {
     });
 }
 
-function displayFlightInfo() {}
+
+  
+async function flightSearch(event) {
+  var buttonClicked = event.target;
+  console.log("buttonClicked: ", buttonClicked);
 
   var departureAirport = getDepartureAirport("chicago");
   console.log("flightSearch departureAirportCode: ", departureAirport);
 
-  var destinationAirport = getArrivalAirport("New York City");
+  var destinationAirport = await getArrivalAirport("New York City");
   console.log("flightSearch destinationAirportCode: ", destinationAirport);
-  
-function flightSearch(event) {
-  var buttonClicked = event.target;
-  console.log("buttonClicked: ", buttonClicked);
-
-
   var outboundDate = moment().format("YYYY-MM-DD"); //set to current date temporarily
   console.log("outbound Date: ", outboundDate);
 
@@ -113,21 +111,28 @@ function getTodaysGames() {
         var awayTeamName = games[i].teams.away.team.name;
         var homeTeamName = games[i].teams.home.team.name;
 
-        var awayTeamLogo; //image   assets\images\teamlogos\"awayTeamName+'logo'.png"
-        var homeTeamLogo; //image   assets\images\Team Logos\"homeTeamName+'logo'.png"
+        var awayTeamLogo = document.createElement('img');
+        awayTeamLogo.src = "assets/images/TeamLogos/"+ awayTeamName.replace(/\s+/g , "-").replace('.', '') + "-logo.png";
+        awayTeamLogo.width = 100;
+        var homeTeamLogo = document.createElement('img');
+        homeTeamLogo.src = "assets/images/TeamLogos/"+ homeTeamName.replace(/\s+/g, "-").replace('.', '') + "-logo.png";
+        homeTeamLogo.width = 100;
+
+        console.log(awayTeamLogo);
+        console.log(homeTeamLogo);
 
         var stadium = games[i].venue.name;
-        var gameInfo = awayTeamName + " vs. " + homeTeamName + " on " + gameDate + " at " + stadium;
+
 
         console.log(gameInfo);
         var gameTitle = document.createElement("button");
-        var awayTeamLogo; //image   assets\images\teamlogos\"awayTeamName+'logo'.png"
-        var homeTeamLogo; //image   assets\images\Team Logos\"homeTeamName+'logo'.png"
         gameTitle.setAttribute("class", stadium);
         gameTitle.addEventListener("click", flightSearch);
 
         todaysGamesEl.append(gameTitle);
-        gameTitle.textContent = gameInfo;
+        gameTitle.append(awayTeamLogo);
+        gameTitle.append(gameInfo);
+        gameTitle.append(homeTeamLogo);
       }
     });
 }

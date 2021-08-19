@@ -35,10 +35,16 @@
 }
 .game-buttons button {
   margin-bottom: 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items: center;
+  width:80%;
 }
 .todays-games {
   background-color: rgb(239, 240, 242);
   padding: 15px 0 0 15px;
+  justify-content: center;
+  align-items: center;
 }
 @media only screen and (max-width: 727px) {
   .columns {
