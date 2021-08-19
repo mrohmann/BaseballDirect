@@ -53,15 +53,16 @@ function getArrivalAirport(homeTeamCity) {
 
 function displayFlightInfo() {}
 
-function flightSearch(event) {
-  var buttonClicked = event.target;
-  console.log("buttonClicked: ", buttonClicked);
-
   var departureAirport = getDepartureAirport("chicago");
   console.log("flightSearch departureAirportCode: ", departureAirport);
 
   var destinationAirport = getArrivalAirport("New York City");
   console.log("flightSearch destinationAirportCode: ", destinationAirport);
+  
+function flightSearch(event) {
+  var buttonClicked = event.target;
+  console.log("buttonClicked: ", buttonClicked);
+
 
   var outboundDate = moment().format("YYYY-MM-DD"); //set to current date temporarily
   console.log("outbound Date: ", outboundDate);
