@@ -14,17 +14,17 @@ function getDepartureAirport(usersCity) {
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
       "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-    }})
-  .then(function(response)  {
-    return response.json();
+    },
   })
-  .then(function(data)  {
-    var departureAirport = data.Places[0].PlaceId;
-    console.log("getDepartureAirport output: ", departureAirport);
-    return departureAirport;
-  });
-  
-};
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var departureAirport = data.Places[0].PlaceId;
+      console.log("getDepartureAirport output: ", departureAirport);
+      return departureAirport;
+    });
+}
 
 function getArrivalAirport(homeTeamCity) {
   console.log("getDepartureAirport input: ", homeTeamCity);
@@ -34,28 +34,24 @@ function getArrivalAirport(homeTeamCity) {
     homeTeamCity;
   console.log("destinationSearchURL: ", destinationSearchURL);
 
- fetch(destinationSearchURL, {
+  fetch(destinationSearchURL, {
     method: "GET",
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
-      "x-rapidapi-host":
-        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
- }})
-  .then(function (response) {
-    return response.json();
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+    },
   })
-  .then(function (data) {
-    var destinationAirport = data.Places[0].PlaceId;
-    console.log("getArrivalAirport output: ", destinationAirport);
-     return destinationAirport;
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var destinationAirport = data.Places[0].PlaceId;
+      console.log("getArrivalAirport output: ", destinationAirport);
+      return destinationAirport;
+    });
+}
 
-  });
-};
-
-function displayFlightInfo( ){
-
-};
-  
+function displayFlightInfo() {}
 
   var departureAirport = getDepartureAirport("chicago");
   console.log("flightSearch departureAirportCode: ", departureAirport);
@@ -81,12 +77,11 @@ function flightSearch(event) {
 
   console.log(flightSearchURL);
 
- fetch(flightSearchURL, {
+  fetch(flightSearchURL, {
     method: "GET",
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
-      "x-rapidapi-host":
-        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
     },
   })
     .then(function (response) {
@@ -100,7 +95,7 @@ function flightSearch(event) {
       console.log("CheapestAirline", cheapestAirline);
     });
 
-    //displayFlightInfo();
+  //displayFlightInfo();
 }
 
 function getTodaysGames() {
@@ -113,9 +108,7 @@ function getTodaysGames() {
       console.log(games);
 
       for (i = 0; i < games.length; i++) {
-        var gameDate = moment(games[i].gameDate).format(
-          "dddd, MMMM Do YYYY, h:mm:ss a"
-        );
+        var gameDate = moment(games[i].gameDate).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
         var awayTeamName = games[i].teams.away.team.name;
         var homeTeamName = games[i].teams.home.team.name;
@@ -124,14 +117,7 @@ function getTodaysGames() {
         var homeTeamLogo; //image   assets\images\Team Logos\"homeTeamName+'logo'.png"
 
         var stadium = games[i].venue.name;
-        var gameInfo =  
-          awayTeamName +
-          " vs. " + 
-          homeTeamName +
-          " on " +
-          gameDate +
-          " at " +
-          stadium;
+        var gameInfo = awayTeamName + " vs. " + homeTeamName + " on " + gameDate + " at " + stadium;
 
         console.log(gameInfo);
         var gameTitle = document.createElement("button");
