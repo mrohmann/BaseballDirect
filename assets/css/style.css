@@ -55,20 +55,15 @@
 .todays-games button:hover {
   box-shadow: 4px 4px 10px rgb(156, 152, 152);
 }
+/* AL Teams */
 #bal:hover {
   background-color: #df4601;
 }
 #bal:hover a {
   color: #000000;
 }
-#bal:hover .team-logo {
-  display: block;
-}
 #bos:hover {
   background-color: #bd3039;
-}
-#bos:hover .team-logo {
-  display: block;
 }
 #bos:hover a {
   color: #0c2340;
@@ -76,17 +71,11 @@
 #tam:hover {
   background-color: #092c5c;
 }
-#tam:hover .team-logo {
-  display: block;
-}
 #tam:hover a {
   color: #8fbce6;
 }
 #nyy:hover {
   background-color: #132448;
-}
-#nyy:hover .team-logo {
-  display: block;
 }
 #nyy:hover a {
   color: #c4ced3;
@@ -94,17 +83,11 @@
 #tor:hover {
   background-color: #144a8e;
 }
-#tor:hover .team-logo {
-  display: block;
-}
 #tor:hover a {
   color: #e8291c;
 }
 #cws:hover {
   background-color: #000000;
-}
-#cws:hover .team-logo {
-  display: block;
 }
 #cws:hover a {
   color: #c4ced4;
@@ -112,17 +95,11 @@
 #cle:hover {
   background-color: #1a2e5a;
 }
-#cle:hover .team-logo {
-  display: block;
-}
 #cle:hover a {
   color: #e31937;
 }
 #det:hover {
   background-color: #f26722;
-}
-#det:hover .team-logo {
-  display: block;
 }
 #det:hover a {
   color: #182d55;
@@ -130,17 +107,11 @@
 #kcr:hover {
   background-color: #7bb2dd;
 }
-#kcr:hover .team-logo {
-  display: block;
-}
 #kcr:hover a {
   color: #c0995a;
 }
 #min:hover {
   background-color: #002b5c;
-}
-#min:hover .team-logo {
-  display: block;
 }
 #min:hover a {
   color: #d31145;
@@ -148,17 +119,11 @@
 #hou:hover {
   background-color: #002d62;
 }
-#hou:hover .team-logo {
-  display: block;
-}
 #hou:hover a {
   color: #eb6e1f;
 }
 #laa:hover {
   background-color: #ba0021;
-}
-#laa:hover .team-logo {
-  display: block;
 }
 #laa:hover a {
   color: #003263;
@@ -166,17 +131,11 @@
 #oak:hover {
   background-color: #003831;
 }
-#oak:hover .team-logo {
-  display: block;
-}
 #oak:hover a {
   color: #efb21e;
 }
 #sea:hover {
   background-color: #005c5c;
-}
-#sea:hover .team-logo {
-  display: block;
 }
 #sea:hover a {
   color: #ffc528;
@@ -184,29 +143,45 @@
 #tex:hover {
   background-color: #003278;
 }
-#tex:hover .team-logo {
-  display: block;
-}
 #tex:hover a {
   color: #c0111f;
 }
+
+#bal:hover .team-logo,
+#bos:hover .team-logo,
+#tam:hover .team-logo,
+#nyy:hover .team-logo,
+#tor:hover .team-logo,
+#cws:hover .team-logo,
+#cle:hover .team-logo,
+#det:hover .team-logo,
+#kcr:hover .team-logo,
+#min:hover .team-logo,
+#hou:hover .team-logo,
+#laa:hover .team-logo,
+#oak:hover .team-logo,
+#sea:hover .team-logo,
+#tex:hover .team-logo {
+  display: block;
+}
+/* NL Teams */
 #atl:hover {
-  background-color: #df4601;
+  background-color: #ce1141;
 }
 #atl:hover a {
   color: #000000;
 }
 #mia:hover {
-  background-color: #ffd100;
+  background-color: #000000;
 }
 #mia:hover a {
-  color: #000000;
+  color: #ff6600;
 }
 #nym:hover {
-  background-color: #ff5910;
+  background-color: #002d72;
 }
 #nym:hover a {
-  color: #002d72;
+  color: #ff5910;
 }
 #phi:hover {
   background-color: #e81828;
@@ -215,7 +190,7 @@
   color: #284898;
 }
 #was:hover {
-  background-color: #212759;
+  background-color: #15264e;
 }
 #was:hover a {
   color: #ab0003;
@@ -233,10 +208,10 @@
   color: #000000;
 }
 #mil:hover {
-  background-color: #b6922e;
+  background-color: #0a2351;
 }
 #mil:hover a {
-  color: #0a2351;
+  color: #b6922e;
 }
 #pit:hover {
   background-color: #000000;
@@ -251,10 +226,10 @@
   color: #fdda00;
 }
 #ari:hover {
-  background-color: #e3d4ad;
+  background-color: #a71930;
 }
 #ari:hover a {
-  color: #a71930;
+  color: #000000;
 }
 #col:hover {
   background-color: #33006f;
@@ -263,20 +238,37 @@
   color: #c4ced4;
 }
 #lad:hover {
-  background-color: #ef3e42;
+  background-color: #fff;
 }
 #lad a:hover {
   color: #005a9c;
 }
 #sdp:hover {
-  background-color: #002d62;
+  background-color: #ffc425;
 }
 #sdp:hover a {
-  color: #ffffff;
+  color: #002d62;
 }
 #sfg:hover {
   background-color: #fd5a1e;
 }
 #sfg:hover a {
   color: #000000;
+}
+#atl:hover .team-logo,
+#mia:hover .team-logo,
+#nym:hover .team-logo,
+#phi:hover .team-logo,
+#was:hover .team-logo,
+#chi:hover .team-logo,
+#cin:hover .team-logo,
+#mil:hover .team-logo,
+#pit:hover .team-logo,
+#stl:hover .team-logo,
+#ari:hover .team-logo,
+#col:hover .team-logo,
+#lad:hover .team-logo,
+#sdp:hover .team-logo,
+#sfg:hover .team-logo {
+  display: block;
 }
