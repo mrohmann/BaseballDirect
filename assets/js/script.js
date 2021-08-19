@@ -112,19 +112,21 @@ function getTodaysGames() {
         var homeTeamName = games[i].teams.home.team.name;
 
         var awayTeamLogo = document.createElement('img');
-        awayTeamLogo.src = "assets/images/TeamLogos/"+ awayTeamName.replace(/\s+/g , "-").replace('.', '') + "-logo.png";
+        awayTeamLogo.src = "assets/images/Team Logos/"+ awayTeamName.replace(/\s+/g , "-").replace('.', '') + "-logo.png";
         awayTeamLogo.width = 100;
         var homeTeamLogo = document.createElement('img');
-        homeTeamLogo.src = "assets/images/TeamLogos/"+ homeTeamName.replace(/\s+/g, "-").replace('.', '') + "-logo.png";
+        homeTeamLogo.src = "assets/images/Team Logos/"+ homeTeamName.replace(/\s+/g, "-").replace('.', '') + "-logo.png";
         homeTeamLogo.width = 100;
 
         console.log(awayTeamLogo);
         console.log(homeTeamLogo);
 
         var stadium = games[i].venue.name;
+        var gameInfo = awayTeamName + " vs. " + homeTeamName + " on " + gameDate + " at " + stadium;
 
 
-        console.log(gameInfo);
+       console.log(gameInfo);
+
         var gameTitle = document.createElement("button");
         gameTitle.setAttribute("class", stadium);
         gameTitle.addEventListener("click", flightSearch);
