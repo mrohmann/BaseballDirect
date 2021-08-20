@@ -3,20 +3,22 @@ var todaysGamesEl = document.getElementById("todaysgames");
 var locationEl = document.getElementById("user-location");
 var submitBtnEl = $("#submit");
 var whatDaysGamesEl = document.getElementById("whatDaysGames");
+var modalEl = $('.modal');
+var flightInfoEl = $('.flight-info');
 var departureAirport;
 var destinationAirport;
 var date;
+var usersCity;
 
 submitBtnEl.on("click", function () {
   date = document.getElementById("date-input").value;
   console.log(date);
   usersCity = locationEl.value;
+  console.log(usersCity);
   getTodaysGames(date);
   return { usersCity, date };
   
 });
-
-function getUserLocation() {};
 
 async function getDepartureAirport(usersCity) {
   console.log("getDepartureAirport input: ", usersCity);
@@ -70,11 +72,18 @@ async function getArrivalAirport(homeTeamCity) {
   return destinationAirport;
 }
 
+function displayFlightInfo(price,airline,departure,destination,stadium){
+
+flightInfoEl.textContent ="The Cheapest Flight to " + stadium+ " leaves from " + departure + " and arrives in " + destination +". This ticket is on " + airline + " and costs $" + price +"."; 
+  //console.log(flightInfoEl.textContent);
+  modalEl.addClass('is-active');
+};
+
 async function flightSearch(event) {
   var buttonClicked = event.target;
   console.log("buttonClicked: ", buttonClicked);
-
-  departureAirport = await getDepartureAirport("boston");
+  var stadium = buttonClicked.className;
+  departureAirport = await getDepartureAirport(usersCity);
   console.log("flightSearch departureAirportCode: ", departureAirport);
 
   destinationAirport = await getArrivalAirport("New York City");
@@ -112,6 +121,8 @@ async function flightSearch(event) {
 
       var cheapestAirline = data.Carriers[0].Name;
       console.log("CheapestAirline", cheapestAirline);
+
+      displayFlightInfo(cheapestFlightPrice,cheapestAirline,departureAirport,destinationAirport,stadium);
     });
 }
 
@@ -125,7 +136,7 @@ function getTodaysGames(date) {
       var games = data.dates[0].games;
       console.log(games);
       todaysGamesEl.innerHTML='';
-      
+
       for (i = 0; i < games.length; i++) {
         var gameDate = moment(games[i].gameDate).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
@@ -135,14 +146,14 @@ function getTodaysGames(date) {
         var awayTeamLogo = document.createElement("img");
         awayTeamLogo.src =
           "assets/images/TeamLogos/" +
-          awayTeamName.replace(/\s+/g, "-").replace(".", "") +
-          "-logo.png";
+          (awayTeamName.replace(/\s+/g, "-").replace(".", "") +
+          "-logo.png").toLowerCase();
         awayTeamLogo.width = 100;
         var homeTeamLogo = document.createElement("img");
         homeTeamLogo.src =
           "assets/images/TeamLogos/" +
-          homeTeamName.replace(/\s+/g, "-").replace(".", "") +
-          "-logo.png";
+          (homeTeamName.replace(/\s+/g, "-").replace(".", "") +
+          "-logo.png").toLowerCase();
         homeTeamLogo.width = 100;
 
         console.log(awayTeamLogo);
