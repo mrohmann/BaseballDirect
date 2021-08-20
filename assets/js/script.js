@@ -1,4 +1,4 @@
-var requestUrl = "https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&date=2021-08-21";
+
 var todaysGamesEl = document.getElementById("todaysgames");
 var locationEl = document.getElementById("user-location");
 var submitBtnEl = $("#submit");
@@ -9,12 +9,14 @@ var date;
 
 submitBtnEl.on("click", function () {
   date = document.getElementById("date-input").value;
-  // console.log(date);
+  console.log(date);
   usersCity = locationEl.value;
+  getTodaysGames(date);
   return { usersCity, date };
+  
 });
 
-function getUserLocation() {}
+function getUserLocation() {};
 
 async function getDepartureAirport(usersCity) {
   console.log("getDepartureAirport input: ", usersCity);
@@ -78,7 +80,7 @@ async function flightSearch(event) {
   destinationAirport = await getArrivalAirport("New York City");
   console.log("flightSearch destinationAirportCode: ", destinationAirport);
 
-  var outboundDate = date; //set to current date temporarily
+  var outboundDate = date;
 
   console.log("outbound Date: ", outboundDate);
 
@@ -111,11 +113,10 @@ async function flightSearch(event) {
       var cheapestAirline = data.Carriers[0].Name;
       console.log("CheapestAirline", cheapestAirline);
     });
-
-  //displayFlightInfo();
 }
 
-function getTodaysGames() {
+function getTodaysGames(date) {
+  var requestUrl = "https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&date=" + date;
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -123,7 +124,8 @@ function getTodaysGames() {
     .then(function (data) {
       var games = data.dates[0].games;
       console.log(games);
-
+      todaysGamesEl.innerHTML='';
+      
       for (i = 0; i < games.length; i++) {
         var gameDate = moment(games[i].gameDate).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
@@ -151,6 +153,8 @@ function getTodaysGames() {
 
         console.log(gameInfo);
 
+        
+
         var gameTitle = document.createElement("button");
         gameTitle.setAttribute("class", stadium);
         gameTitle.addEventListener("click", flightSearch);
@@ -163,9 +167,4 @@ function getTodaysGames() {
     });
 }
 
-getTodaysGames();
-// submitBtnEl.addEventListener("click", getDate);
-
-async function renderAirportCode() {
-  var airportCode = await getAirportCode();
-}
+getTodaysGames(moment().format('YYYY-MM-DD'));
