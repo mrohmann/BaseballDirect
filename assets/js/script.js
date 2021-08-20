@@ -1,18 +1,20 @@
-var requestUrl =
-  "https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&date=2021-08-21";
+var requestUrl = "https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&date=2021-08-21";
 var todaysGamesEl = document.getElementById("todaysgames");
-var calendarEl = document.getElementById("date-Input");
-var submitBtnEl = document.querySelector("submit");
+var locationEl = document.getElementById("user-location");
+var submitBtnEl = $("#submit");
 var whatDaysGamesEl = document.getElementById("whatDaysGames");
 var departureAirport;
 var destinationAirport;
+var date;
 
-// function getDate(event){
+submitBtnEl.on("click", function () {
+  date = document.getElementById("date-input").value;
+  // console.log(date);
+  usersCity = locationEl.value;
+  return { usersCity, date };
+});
 
-//   var date = new Date($('#date-imput').val());
-//   whatDaysGamesEl.textContent = "Games on " + date;
-//   getTodaysGames(date);
-// };
+function getUserLocation() {}
 
 async function getDepartureAirport(usersCity) {
   console.log("getDepartureAirport input: ", usersCity);
@@ -26,8 +28,7 @@ async function getDepartureAirport(usersCity) {
     method: "GET",
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
-      "x-rapidapi-host":
-        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
     },
   })
     .then(function (response) {
@@ -53,8 +54,7 @@ async function getArrivalAirport(homeTeamCity) {
     method: "GET",
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
-      "x-rapidapi-host":
-        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
     },
   })
     .then(function (response) {
@@ -78,7 +78,7 @@ async function flightSearch(event) {
   destinationAirport = await getArrivalAirport("New York City");
   console.log("flightSearch destinationAirportCode: ", destinationAirport);
 
-  var outboundDate = moment().format("YYYY-MM-DD"); //set to current date temporarily
+  var outboundDate = date; //set to current date temporarily
 
   console.log("outbound Date: ", outboundDate);
 
@@ -97,8 +97,7 @@ async function flightSearch(event) {
     method: "GET",
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
-      "x-rapidapi-host":
-        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
     },
   })
     .then(function (response) {
@@ -126,9 +125,7 @@ function getTodaysGames() {
       console.log(games);
 
       for (i = 0; i < games.length; i++) {
-        var gameDate = moment(games[i].gameDate).format(
-          "dddd, MMMM Do YYYY, h:mm:ss a"
-        );
+        var gameDate = moment(games[i].gameDate).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
         var awayTeamName = games[i].teams.away.team.name;
         var homeTeamName = games[i].teams.home.team.name;
@@ -150,14 +147,7 @@ function getTodaysGames() {
         console.log(homeTeamLogo);
 
         var stadium = games[i].venue.name;
-        var gameInfo =
-          awayTeamName +
-          " vs. " +
-          homeTeamName +
-          " on " +
-          gameDate +
-          " at " +
-          stadium;
+        var gameInfo = awayTeamName + " vs. " + homeTeamName + " on " + gameDate + " at " + stadium;
 
         console.log(gameInfo);
 
