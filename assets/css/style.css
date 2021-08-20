@@ -33,16 +33,23 @@
 .teams ul li {
   margin-top: 1px;
 }
+
+.game-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
 .game-buttons button {
   margin-bottom: 15px;
   display:flex;
-  justify-content:space-between;
+  justify-content:space-around;
   align-items: center;
-  width:80%;
+  width:100%;
 }
 .todays-games {
   background-color: rgb(239, 240, 242);
-  padding: 15px 0 0 15px;
+  padding: 15px;
   justify-content: center;
   align-items: center;
 }
