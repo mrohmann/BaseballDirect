@@ -1,38 +1,39 @@
 # BaseballDirect
-Application to look up MLB games on a chosen date and display cheap flights to those cities
 
-Css alternative  -  Bulma  
-Api’s - sportsdb api  & google flight
+## Overview
 
+Baseball Direct is an application where a user can view daily baseball games and see flight information to attend selected game.
+This application used Bulma as an alternate CSS framework other than Bootsrap. The APIs we used to gather baseball and flight information are the MLB Stats API & Skyscanner API.
 
+## User Story
 
+```
+AS A baseball fan
+I WANT to be able to view daily baseball games and be able to see flight information
+SO THAT I can attend the chosen baseball game
+```
 
-Google Map API in case flight doesn’t work out
-https://developers.google.com/maps/documentation/javascript/reference/directions#TransitVehicle 
+## Acceptance Criteria
 
-
-
-
-
-
-User Story
-AS a huge baseball fan 
-I WANT to be able to view daily sporting events and be able to select available flights to the game.
-SO THAT I can attend live events directly from the website.
-
-
-Acceptance Criteria
-
-GIVEN I am using a daily planner to create a schedule
-WHEN I open the planner
-THEN the current day is displayed at the top of the calendar
-WHEN I scroll down
-THEN I am presented with timeblocks for standard business hours
+```
+GIVEN I am a baseball fan using an application to view daily gaming events
+WHEN I open the application
+THEN today's current games are displayed in the middle of the page
+WHEN I choose a date and enter a city name
+THEN the page refreshes presenting games for the selected date
+WHEN I click on a game
+THEN I am presented with a modal displaying flight information with a link to book a flight to the game
 WHEN I view the timeblocks for that day
-THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-WHEN I click into a timeblock
-THEN I can enter an event
-WHEN I click the save button for that timeblock
-THEN the text for that event is saved in local storage
-WHEN I refresh the page
-THEN the saved events persist
+
+```
+
+## Requirements
+
+- MUST use at least two server-side APIs
+- MUST use a CSS framework other than Bootstrap
+- MUST use client-side storage to store persistent data
+- MUST have a polished UI
+- MUST meet good quality coding standards (indentation, scoping, naming, etc.)
+- MUST NOT use alerts, confirms, or prompts (use modalds)
+- MUST be deployed to GitHub Pages
+  -MUST be interactive (i.e: accept and respond to user input)
