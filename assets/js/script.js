@@ -6,8 +6,8 @@ var modalEl = $(".modal");
 var modalCloseBtn = $(".modal-close");
 var dateInput = document.getElementById("date-input");
 
-var departureAirport; //={departureAirportCode, departureAirportName};
-var destinationAirport;//={departureAirportCode, departureAirportName};
+var departureAirport={code:'',fullName:''};
+var destinationAirport={code:'',fullName:''};
 var date;
 var usersCity;
 var stadiumList =
@@ -168,8 +168,8 @@ async function getDepartureAirport(usersCity) {
     })
     .then(function (data) {
       console.log(data);
-      departureAirport = data.Places[0].PlaceId;
-      departureAirportName =data.Places[0].PlaceName;
+      departureAirport.code = data.Places[0].PlaceId;
+      //departureAirport.fullName =data.Places[0].PlaceName;
       console.log("getDepartureAirport output: ", departureAirport);
     });
   return departureAirport;
@@ -194,8 +194,9 @@ async function getArrivalAirport(homeTeamCity) {
     })
     .then(function (data) {
       //onsole.log(data);
-      destinationAirport = data.Places[0].PlaceId;
+      destinationAirport.code = data.Places[0].PlaceId;
       //console.log("getArrivalAirport output: ", destinationAirport);
+      //destinationAirport.fullName =data.Places[0].PlaceName;
     });
   return destinationAirport;
 }
@@ -214,15 +215,13 @@ function displayFlightInfo(price, airline, departure, destination, stadium) {
     stadium +
     " leaves from " +
     departure +
-    " and arrives in " +
+    " Airport and arrives at " +
     destination +
-    ". This ticket is on " +
+    " Airport. This ticket is on " +
     airline +
     " and costs $" +
     price +
     ".";
-
-  console.log(flightInfoEl.innerHTML);
 
   modalCloseBtn.click(function () {
     $(".modal").removeClass("is-active");
@@ -273,9 +272,9 @@ async function flightSearch(event) {
 
   var flightSearchURL =
     "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" +
-    departureAirport +
+    departureAirport.code +
     "/" +
-    destinationAirport +
+    destinationAirport.code +
     "/" +
     outboundDate +
     "?";
@@ -302,8 +301,11 @@ async function flightSearch(event) {
 
         var cheapestAirline = data.Carriers[0].Name;
         console.log("CheapestAirline", cheapestAirline);
+        departureAirport.fullName = data.Places[0].Name;
 
-        displayFlightInfo(cheapestFlightPrice, cheapestAirline, departureAirport, destinationAirport, stadium);
+        destinationAirport.fullName = data.Places[1].Name;
+
+        displayFlightInfo(cheapestFlightPrice, cheapestAirline, departureAirport.fullName, destinationAirport.fullName, stadium);
       }
       else{
         displayErrorMessage();
