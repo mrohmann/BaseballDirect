@@ -6,8 +6,8 @@ var modalEl = $(".modal");
 var modalCloseBtn = $(".modal-close");
 var dateInput = document.getElementById("date-input");
 
-var departureAirport;
-var destinationAirport;
+var departureAirport; //={departureAirportCode, departureAirportName};
+var destinationAirport;//={departureAirportCode, departureAirportName};
 var date;
 var usersCity;
 var stadiumList =
@@ -105,7 +105,7 @@ var stadiumList =
     city:'Cleveland'
   },
   {
-    stadium:'Rodgers Center',
+    stadium:'Rogers Centre',
     city:'Toronto'
   },
   {
@@ -131,7 +131,7 @@ var stadiumList =
   {
     stadium:'Yankee Stadium',
     city:'Bronx'
-  },
+  }
 
 ];
 
@@ -172,14 +172,14 @@ async function getDepartureAirport(usersCity) {
       departureAirportName =data.Places[0].PlaceName;
       console.log("getDepartureAirport output: ", departureAirport);
     });
-  return departureAirportCode, departureAirportName;
+  return departureAirport;
 }
 
 async function getArrivalAirport(homeTeamCity) {
-  //console.log("getDepartureAirport input: ", homeTeamCity);
+  console.log("getDepartureAirport input: ", homeTeamCity);
 
   var destinationSearchURL = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query=" + homeTeamCity;
-  //console.log("destinationSearchURL: ", destinationSearchURL);
+  console.log("destinationSearchURL: ", destinationSearchURL);
 
   await fetch(destinationSearchURL, {
     method: "GET",
@@ -228,6 +228,22 @@ function displayFlightInfo(price, airline, departure, destination, stadium) {
     $(".modal").removeClass("is-active");
   });
 }
+
+function displayErrorMessage()
+{
+  modalEl.addClass("is-active");
+  var stadiumLogo = document.getElementById("stadium-logo");
+  //console.log(stadium);
+  stadiumLogo.src = "assets/images/SorryError.jpg";
+
+  var flightInfoEl = document.getElementById("flight-info");
+  flightInfoEl.innerHTML = "Sorry! No Cheap Flights Were Found!"
+
+  modalCloseBtn.click(function () {
+    $(".modal").removeClass("is-active");
+  });
+  
+};
 
 function getStadiumCity(stadium) {
   for (i=0; i<stadiumList.length;i++){
@@ -279,19 +295,19 @@ async function flightSearch(event) {
     })
     .then(function (data) {
       console.log(data);
-      var cheapestFlightPrice = data.Quotes[0].MinPrice;
-      console.log("CheapestFlightPrice", cheapestFlightPrice);
+      if(data.Quotes.length>0)
+      {
+        var cheapestFlightPrice = data.Quotes[0].MinPrice;
+        console.log("CheapestFlightPrice", cheapestFlightPrice);
 
-      var cheapestAirline = data.Carriers[0].Name;
-      console.log("CheapestAirline", cheapestAirline);
+        var cheapestAirline = data.Carriers[0].Name;
+        console.log("CheapestAirline", cheapestAirline);
 
-      displayFlightInfo(
-        cheapestFlightPrice,
-        cheapestAirline,
-        departureAirport,
-        destinationAirport,
-        stadium
-      );
+        displayFlightInfo(cheapestFlightPrice, cheapestAirline, departureAirport, destinationAirport, stadium);
+      }
+      else{
+        displayErrorMessage();
+      };
     });
 }
 
