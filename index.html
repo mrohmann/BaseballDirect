@@ -166,11 +166,12 @@
           </ul>
         </div>
         <div class="column is-four-fifths">
+          <h3>Select a date and enter the city of your nearest Airport to look for a Game!.</h3>
           <input type="date" id="date-input" name="dateSelection">
-          <input type="text" id="user-location" placeholder = "Enter your zip Code!">
+          <input type="text" id="user-location" placeholder = "Enter your closest Airport!">
           <button id='submit'>Submit</button>
           <h2 class="whatDaysGames"></h2>
-          <p>Select a game to book a flight to today's game.</p>
+          
           <div class="todays-games">
             <h3 id="todaysgames" class="game-buttons"></h3>
           </div>
@@ -183,16 +184,23 @@
           <div class = "box">
            <article class = "media">
              <div class = "media-left">
-                <figure class = "image is-64x64">
-                   <img src = "" alt="Image">
+                <figure class = "image is-128x128" >
+                   <img src='' id='stadium-logo' alt="Stadium logo">
                 </figure>
              </div>
               <div class = "media-content">
                 <div class = "content" id= "flight-info">
                 </div>
               </div>
+              <div class = "media-right">
+                <figure class = "image is-96x96" id='stadium-logo'>
+                   <img src = "https://cdn0.iconfinder.com/data/icons/gcons-2/22/airplane1-512.png" alt="Image">
+                </figure>
+             </div>
+             <button class='google-flights'>Click To go To Google Flights!</button>
+             <button class="modal-close is-large" aria-label="close"></button>
             </article>
-            <button class="modal-close is-large" aria-label="close"></button>
+            
         </div>
       </div>
     </div>
