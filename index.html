@@ -167,7 +167,7 @@
         </div>
         <div class="column is-four-fifths">
           <input type="date" id="date-input" name="dateSelection">
-          <input type="text" id="user-location">
+          <input type="text" id="user-location" placeholder = "Enter your zip Code!">
           <button id='submit'>Submit</button>
           <h2 class="whatDaysGames"></h2>
           <p>Select a game to book a flight to today's game.</p>
@@ -179,20 +179,22 @@
     </div>
     <div class="modal ">
       <div class="modal-background"></div>
-      <div class="modal-content">
-        <div class = "box">
-          <article class = "media">
+        <div class="modal-content">
+          <div class = "box">
+           <article class = "media">
              <div class = "media-left">
                 <figure class = "image is-64x64">
                    <img src = "" alt="Image">
                 </figure>
              </div>
-             <div class = "media-content">
-                <div class = "content">
-                  <p class = "flight-info">test</p>
+              <div class = "media-content">
+                <div class = "content" id= "flight-info">
                 </div>
-  
-      <button class="modal-close is-large" aria-label="close"></button>
+              </div>
+            </article>
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+      </div>
     </div>
   </section>
 

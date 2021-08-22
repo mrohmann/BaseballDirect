@@ -4,18 +4,23 @@ var locationEl = document.getElementById("user-location");
 var submitBtnEl = $("#submit");
 var whatDaysGamesEl = document.getElementById("whatDaysGames");
 var modalEl = $('.modal');
-var flightInfoEl = document.getElementsByClassName('flight-info');
+var flightInfoEl = document.getElementsByClassName('content');
 var modalCloseBtn = $(".modal-close");
 var departureAirport;
 var destinationAirport;
+var dateInput = document.getElementById("date-input");
 var date;
 var usersCity;
 
+dateInput.value = moment().format('YYYY-MM-DD');
+
 submitBtnEl.on("click", function () {
-  date = document.getElementById("date-input").value;
+  date =dateInput.value;
+
   console.log(date);
   usersCity = locationEl.value;
   console.log(usersCity);
+  localStorage.setItem("Users City", usersCity.value);
   getTodaysGames(date);
   return { usersCity, date };
   
@@ -73,13 +78,16 @@ async function getArrivalAirport(homeTeamCity) {
   return destinationAirport;
 }
 
-function displayFlightInfo(price,airline,departure,destination,stadium){
-
-flightInfoEl.textContent ="The Cheapest Flight to " + stadium+ " leaves from " + departure + " and arrives in " + destination +". This ticket is on " + airline + " and costs $" + price  +"."; 
-  console.log(flightInfoEl.textContent);
+function displayFlightInfo(price,airline,departure,destination,stadium,homeTeamLogo){
   modalEl.addClass('is-active');
-
   
+  var flightInfoEl = document.getElementById('flight-info');
+  flightInfoEl.innerHTML ="The Cheapest Flight to " + stadium+ " leaves from " + departure + " and arrives in " + destination +". This ticket is on " + airline + " and costs $" + price  +"."; 
+  //document.getElementsByClassName('image img').src= 'https://cdn0.iconfinder.com/data/icons/gcons-2/22/airplane1-512.png';
+  
+  
+  console.log(flightInfoEl.innerHTML);
+
   modalCloseBtn.click(function() {
      $(".modal").removeClass("is-active");
   });
