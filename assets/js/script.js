@@ -4,7 +4,8 @@ var locationEl = document.getElementById("user-location");
 var submitBtnEl = $("#submit");
 var whatDaysGamesEl = document.getElementById("whatDaysGames");
 var modalEl = $('.modal');
-var flightInfoEl = $('.flight-info');
+var flightInfoEl = document.getElementsByClassName('flight-info');
+var modalCloseBtn = $(".modal-close");
 var departureAirport;
 var destinationAirport;
 var date;
@@ -74,9 +75,15 @@ async function getArrivalAirport(homeTeamCity) {
 
 function displayFlightInfo(price,airline,departure,destination,stadium){
 
-flightInfoEl.textContent ="The Cheapest Flight to " + stadium+ " leaves from " + departure + " and arrives in " + destination +". This ticket is on " + airline + " and costs $" + price +"."; 
-  //console.log(flightInfoEl.textContent);
+flightInfoEl.textContent ="The Cheapest Flight to " + stadium+ " leaves from " + departure + " and arrives in " + destination +". This ticket is on " + airline + " and costs $" + price  +"."; 
+  console.log(flightInfoEl.textContent);
   modalEl.addClass('is-active');
+
+  
+  modalCloseBtn.click(function() {
+     $(".modal").removeClass("is-active");
+  });
+
 };
 
 async function flightSearch(event) {
