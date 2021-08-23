@@ -6,136 +6,140 @@ var modalEl = $(".modal");
 var modalCloseBtn = $(".modal-close");
 var dateInput = document.getElementById("date-input");
 
-var departureAirport={code:'',fullName:''};
-var destinationAirport={code:'',fullName:''};
+var departureAirport = { code: "", fullName: "" };
+var destinationAirport = { code: "", fullName: "" };
 var date;
 var usersCity;
-var stadiumList =
-[
+var stadiumList = [
   {
-    stadium:'American Family Field',
-    city:'Milwaukee',
+    stadium: "American Family Field",
+    city: "Milwaukee",
   },
   {
-    stadium:'Angel Stadium',
-    city:'Anaheim'
+    stadium: "Angel Stadium",
+    city: "Anaheim",
   },
   {
-    stadium:'Busch Stadium',
-    city:'St Louis'
+    stadium: "Busch Stadium",
+    city: "St Louis",
   },
   {
-    stadium:'Chase Field',
-    city:'Phoenix'
+    stadium: "Chase Field",
+    city: "Phoenix",
   },
   {
-    stadium:'Citi Field',
-    city:'Queens'
+    stadium: "Citi Field",
+    city: "Queens",
   },
   {
-    stadium:'Citizens Bank Park',
-    city:'Philadelphia'
+    stadium: "Citizens Bank Park",
+    city: "Philadelphia",
   },
   {
-    stadium:'Comerica Park',
-    city:'Detroit'
+    stadium: "Comerica Park",
+    city: "Detroit",
   },
   {
-    stadium:'Coors Field',
-    city:'Denver'
+    stadium: "Coors Field",
+    city: "Denver",
   },
   {
-    stadium:'Dodger Stadium',
-    city:'Los Angeles'
+    stadium: "Dodger Stadium",
+    city: "Los Angeles",
   },
   {
-    stadium:'Fenway Park',
-    city:'Boston'
+    stadium: "Fenway Park",
+    city: "Boston",
   },
   {
-    stadium:'Globe Life Field',
-    city:'Arlington'
+    stadium: "Globe Life Field",
+    city: "Arlington",
   },
   {
-    stadium:'Great American Ball Park',
-    city:'Cincinnati'
+    stadium: "Great American Ball Park",
+    city: "Cincinnati",
   },
   {
-    stadium:'Guaranteed Rate Field',
-    city:'Chicago'
+    stadium: "Guaranteed Rate Field",
+    city: "Chicago",
   },
   {
-    stadium:'Kauffman Stadium',
-    city:'Kansas City'
+    stadium: "Kauffman Stadium",
+    city: "Kansas City",
   },
   {
-    stadium:'LoanDepot Park',
-    city:'Miami'
+    stadium: "LoanDepot Park",
+    city: "Miami",
   },
   {
-    stadium:'Minute Maid Park',
-    city:'Houston'
+    stadium: "Minute Maid Park",
+    city: "Houston",
   },
   {
-    stadium:'Nationals Park',
-    city:'Washington, DC'
+    stadium: "Nationals Park",
+    city: "Washington, DC",
   },
   {
-    stadium:'Oakland Coliseum',
-    city:'Oakland'
+    stadium: "Oakland Coliseum",
+    city: "Oakland",
   },
   {
-    stadium:'Oracle Park',
-    city:'San Fransisco'
+    stadium: "Oracle Park",
+    city: "San Fransisco",
   },
   {
-    stadium:'Oriole Park at Camden Yards',
-    city:'Baltimore'
+    stadium: "Oriole Park at Camden Yards",
+    city: "Baltimore",
   },
   {
-    stadium:'Petco Park',
-    city:'San Diego'
+    stadium: "Petco Park",
+    city: "San Diego",
   },
   {
-    stadium:'PNC Park',
-    city:'Pittsburg'
+    stadium: "PNC Park",
+    city: "Pittsburg",
   },
   {
-    stadium:'BB&T Ballpark',
-    city:'Cleveland'
+    stadium: "BB&T Ballpark",
+    city: "Cleveland",
   },
   {
-    stadium:'Rogers Centre',
-    city:'Toronto'
+    stadium: "Rogers Centre",
+    city: "Toronto",
   },
   {
-    stadium:'T-Mobile Park',
-    city:'Seattle'
+    stadium: "T-Mobile Park",
+    city: "Seattle",
   },
   {
-    stadium:'Target Field',
-    city:'Minneapolis'
+    stadium: "Target Field",
+    city: "Minneapolis",
   },
   {
-    stadium:'Tropicana Field',
-    city:'St Petersburg,Fl'
+    stadium: "Tropicana Field",
+    city: "St Petersburg,Fl",
   },
   {
-    stadium:'Truist Park',
-    city:'Cumberland'
+    stadium: "Truist Park",
+    city: "Cumberland",
   },
   {
-    stadium:'Wrigley Field',
-    city:'Chicago'
+    stadium: "Wrigley Field",
+    city: "Chicago",
   },
   {
-    stadium:'Yankee Stadium',
-    city:'Bronx'
-  }
-
+    stadium: "Yankee Stadium",
+    city: "Bronx",
+  },
 ];
 
-dateInput.value = moment().format("YYYY-MM-DD");
+if (localStorage.length == 0) {
+  dateInput.value = moment().format("YYYY-MM-DD");
+  locationEl.value = "";
+} else {
+  dateInput.value = JSON.parse(localStorage.getItem("gameDateAndUsersCity")).date;
+  locationEl.value = JSON.parse(localStorage.getItem("gameDateAndUsersCity")).usersCity;
+}
 
 submitBtnEl.on("click", function () {
   date = dateInput.value;
@@ -144,6 +148,13 @@ submitBtnEl.on("click", function () {
   usersCity = locationEl.value;
   console.log(usersCity);
   getTodaysGames(date);
+
+  var gameDateAndUserCity = { date: date, usersCity: usersCity };
+
+  if (date && usersCity) {
+    localStorage.setItem("gameDateAndUsersCity", JSON.stringify(gameDateAndUserCity));
+  }
+
   return { usersCity, date };
 });
 
@@ -159,8 +170,7 @@ async function getDepartureAirport(usersCity) {
     method: "GET",
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
-      "x-rapidapi-host":
-        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
     },
   })
     .then(function (response) {
@@ -178,15 +188,16 @@ async function getDepartureAirport(usersCity) {
 async function getArrivalAirport(homeTeamCity) {
   console.log("getDepartureAirport input: ", homeTeamCity);
 
-  var destinationSearchURL = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query=" + homeTeamCity;
+  var destinationSearchURL =
+    "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query=" +
+    homeTeamCity;
   console.log("destinationSearchURL: ", destinationSearchURL);
 
   await fetch(destinationSearchURL, {
     method: "GET",
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
-      "x-rapidapi-host":
-        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
     },
   })
     .then(function (response) {
@@ -207,7 +218,7 @@ function displayFlightInfo(price, airline, departure, destination, stadium) {
   var stadiumLogo = document.getElementById("stadium-logo");
   //console.log(stadium);
   stadiumLogo.src = "assets/images/StadiumLogos/" + stadium.replace(/\s+/g, "") + ".jpg";
- // console.log(stadiumLogo);
+  // console.log(stadiumLogo);
 
   var flightInfoEl = document.getElementById("flight-info");
   flightInfoEl.innerHTML =
@@ -228,31 +239,28 @@ function displayFlightInfo(price, airline, departure, destination, stadium) {
   });
 }
 
-function displayErrorMessage()
-{
+function displayErrorMessage() {
   modalEl.addClass("is-active");
   var stadiumLogo = document.getElementById("stadium-logo");
   //console.log(stadium);
   stadiumLogo.src = "assets/images/SorryError.jpg";
 
   var flightInfoEl = document.getElementById("flight-info");
-  flightInfoEl.innerHTML = "Sorry! No Cheap Flights Were Found!"
+  flightInfoEl.innerHTML = "Sorry! No Cheap Flights Were Found!";
 
   modalCloseBtn.click(function () {
     $(".modal").removeClass("is-active");
   });
-  
-};
+}
 
 function getStadiumCity(stadium) {
-  for (i=0; i<stadiumList.length;i++){
-      if(stadium === stadiumList[i].stadium){
+  for (i = 0; i < stadiumList.length; i++) {
+    if (stadium === stadiumList[i].stadium) {
       console.log(stadiumList[i].city);
-        return stadiumList[i].city;
-      };
-  };
-  
-};
+      return stadiumList[i].city;
+    }
+  }
+}
 
 async function flightSearch(event) {
   var buttonClicked = event.target;
@@ -285,8 +293,7 @@ async function flightSearch(event) {
     method: "GET",
     headers: {
       "x-rapidapi-key": "2e3c634b2dmsh141fbff444002ccp175fe7jsn0f7c102fb43f",
-      "x-rapidapi-host":
-        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
     },
   })
     .then(function (response) {
@@ -294,8 +301,7 @@ async function flightSearch(event) {
     })
     .then(function (data) {
       console.log(data);
-      if(data.Quotes.length>0)
-      {
+      if (data.Quotes.length > 0) {
         var cheapestFlightPrice = data.Quotes[0].MinPrice;
         console.log("CheapestFlightPrice", cheapestFlightPrice);
 
@@ -305,17 +311,21 @@ async function flightSearch(event) {
 
         destinationAirport.fullName = data.Places[1].Name;
 
-        displayFlightInfo(cheapestFlightPrice, cheapestAirline, departureAirport.fullName, destinationAirport.fullName, stadium);
-      }
-      else{
+        displayFlightInfo(
+          cheapestFlightPrice,
+          cheapestAirline,
+          departureAirport.fullName,
+          destinationAirport.fullName,
+          stadium
+        );
+      } else {
         displayErrorMessage();
-      };
+      }
     });
 }
 
 function getTodaysGames(date) {
-  var requestUrl =
-    "https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&date=" + date;
+  var requestUrl = "https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&date=" + date;
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -326,9 +336,7 @@ function getTodaysGames(date) {
       todaysGamesEl.innerHTML = "";
 
       for (i = 0; i < games.length; i++) {
-        var gameDate = moment(games[i].gameDate).format(
-          "dddd, MMMM Do YYYY, h:mm:ss a"
-        );
+        var gameDate = moment(games[i].gameDate).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
         var awayTeamName = games[i].teams.away.team.name;
         var homeTeamName = games[i].teams.home.team.name;
@@ -336,30 +344,19 @@ function getTodaysGames(date) {
         var awayTeamLogo = document.createElement("img");
         awayTeamLogo.src =
           "assets/images/TeamLogos/" +
-          (
-            awayTeamName.replace(/\s+/g, "-").replace(".", "") + "-logo.png"
-          ).toLowerCase();
+          (awayTeamName.replace(/\s+/g, "-").replace(".", "") + "-logo.png").toLowerCase();
         awayTeamLogo.width = 100;
         var homeTeamLogo = document.createElement("img");
         homeTeamLogo.src =
           "assets/images/TeamLogos/" +
-          (
-            homeTeamName.replace(/\s+/g, "-").replace(".", "") + "-logo.png"
-          ).toLowerCase();
+          (homeTeamName.replace(/\s+/g, "-").replace(".", "") + "-logo.png").toLowerCase();
         homeTeamLogo.width = 100;
 
         // console.log(awayTeamLogo);
         // console.log(homeTeamLogo);
 
         var stadium = games[i].venue.name;
-        var gameInfo =
-          awayTeamName +
-          " vs. " +
-          homeTeamName +
-          " on " +
-          gameDate +
-          " at " +
-          stadium;
+        var gameInfo = awayTeamName + " vs. " + homeTeamName + " on " + gameDate + " at " + stadium;
 
         // console.log(gameInfo);
 
@@ -375,4 +372,4 @@ function getTodaysGames(date) {
     });
 }
 
-getTodaysGames(moment().format("YYYY-MM-DD"));
+getTodaysGames(dateInput.value);
