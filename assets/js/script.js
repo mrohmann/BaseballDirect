@@ -69,7 +69,7 @@ var stadiumList =
     city:'Kansas City'
   },
   {
-    stadium:'LoanDepot Park',
+    stadium:'loanDepot Park',
     city:'Miami'
   },
   {
@@ -101,7 +101,7 @@ var stadiumList =
     city:'Pittsburg'
   },
   {
-    stadium:'BB&T Ballpark',
+    stadium:'Progressive Field',
     city:'Cleveland'
   },
   {
@@ -214,7 +214,7 @@ function displayFlightInfo(price, airline, departure, destination, stadium) {
     "The Cheapest Flight to " +
     stadium +
     " leaves from " +
-    departure +
+     departure +
     " Airport and arrives at " +
     destination +
     " Airport. This ticket is on " +
@@ -322,7 +322,8 @@ function getTodaysGames(date) {
     })
     .then(function (data) {
       var games = data.dates[0].games;
-      //console.log(games);
+      
+    console.log(games);
       todaysGamesEl.innerHTML = "";
 
       for (i = 0; i < games.length; i++) {
