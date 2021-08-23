@@ -54,7 +54,7 @@ var stadiumList =
   },
   {
     stadium:'Globe Life Field',
-    city:'Arlington'
+    city:'Dallas'
   },
   {
     stadium:'Great American Ball Park',
@@ -69,7 +69,7 @@ var stadiumList =
     city:'Kansas City'
   },
   {
-    stadium:'loanDepot Park',
+    stadium:'loanDepot park',
     city:'Miami'
   },
   {
@@ -301,9 +301,19 @@ async function flightSearch(event) {
 
         var cheapestAirline = data.Carriers[0].Name;
         console.log("CheapestAirline", cheapestAirline);
-        departureAirport.fullName = data.Places[0].Name;
 
-        destinationAirport.fullName = data.Places[1].Name;
+        if((data.Quotes[0].OutboundLeg.OriginId) === (data.Places[0].PlaceId))
+        {
+          departureAirport.fullName = data.Places[0].Name;
+          destinationAirport.fullName = data.Places[1].Name;
+        }
+        else
+        {
+          departureAirport.fullName = data.Places[1].Name;
+          destinationAirport.fullName = data.Places[0].Name;
+        };
+
+        
 
         displayFlightInfo(cheapestFlightPrice, cheapestAirline, departureAirport.fullName, destinationAirport.fullName, stadium);
       }
@@ -376,4 +386,4 @@ function getTodaysGames(date) {
     });
 }
 
-getTodaysGames(moment().format("YYYY-MM-DD"));
+getTodaysGames(moment().format('YYYY-MM-DD'));
