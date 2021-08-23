@@ -52,8 +52,8 @@ var stadiumList = [
     city: "Boston",
   },
   {
-    stadium: "Globe Life Field",
-    city: "Arlington",
+    stadium:'Globe Life Field',
+    city:'Dallas',
   },
   {
     stadium: "Great American Ball Park",
@@ -68,8 +68,8 @@ var stadiumList = [
     city: "Kansas City",
   },
   {
-    stadium: "LoanDepot Park",
-    city: "Miami",
+    stadium:'loanDepot park',
+    city:'Miami',
   },
   {
     stadium: "Minute Maid Park",
@@ -100,8 +100,8 @@ var stadiumList = [
     city: "Pittsburg",
   },
   {
-    stadium: "BB&T Ballpark",
-    city: "Cleveland",
+    stadium:'Progressive Field',
+    city:'Cleveland'
   },
   {
     stadium: "Rogers Centre",
@@ -225,7 +225,7 @@ function displayFlightInfo(price, airline, departure, destination, stadium) {
     "The Cheapest Flight to " +
     stadium +
     " leaves from " +
-    departure +
+     departure +
     " Airport and arrives at " +
     destination +
     " Airport. This ticket is on " +
@@ -307,9 +307,19 @@ async function flightSearch(event) {
 
         var cheapestAirline = data.Carriers[0].Name;
         console.log("CheapestAirline", cheapestAirline);
-        departureAirport.fullName = data.Places[0].Name;
 
-        destinationAirport.fullName = data.Places[1].Name;
+        if((data.Quotes[0].OutboundLeg.OriginId) === (data.Places[0].PlaceId))
+        {
+          departureAirport.fullName = data.Places[0].Name;
+          destinationAirport.fullName = data.Places[1].Name;
+        }
+        else
+        {
+          departureAirport.fullName = data.Places[1].Name;
+          destinationAirport.fullName = data.Places[0].Name;
+        };
+
+        
 
         displayFlightInfo(
           cheapestFlightPrice,
@@ -332,7 +342,8 @@ function getTodaysGames(date) {
     })
     .then(function (data) {
       var games = data.dates[0].games;
-      //console.log(games);
+      
+    console.log(games);
       todaysGamesEl.innerHTML = "";
 
       for (i = 0; i < games.length; i++) {
@@ -372,4 +383,8 @@ function getTodaysGames(date) {
     });
 }
 
+
+
+=======
 getTodaysGames(dateInput.value);
+
