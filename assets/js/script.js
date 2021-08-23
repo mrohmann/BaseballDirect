@@ -101,7 +101,7 @@ var stadiumList =
     city:'Pittsburg'
   },
   {
-    stadium:'Progressive Field',
+    stadium:'BB&T Ballpark',
     city:'Cleveland'
   },
   {
