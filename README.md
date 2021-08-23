@@ -5,6 +5,8 @@
 Baseball Direct is an application where a user can view daily baseball games and see flight information to attend selected game.
 This application used Bulma as an alternate CSS framework other than Bootsrap. The APIs we used to gather baseball and flight information are the MLB Stats API & Skyscanner API.
 
+![Baseball direct apps includes a date input field and user's location to find a flight to the user's desired game.](./assets/images/baseball-direct-snippet.PNG)
+
 ## User Story
 
 ```
